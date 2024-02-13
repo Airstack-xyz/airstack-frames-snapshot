@@ -50,8 +50,8 @@ async function getResponse(req: NextRequest): Promise<NextResponse> {
               <meta property="fc:frame" content="vNext" />
               <meta property="fc:frame:image" content="https://gateway.ipfs.io/ipfs/QmSho42fWi25oBWp5MrrFH9zUGFvnspxVHvcymNJoe3DEZ/output.png" />
               <meta name="fc:frame:button:1" content="Try again?" />
-              <meta name="fc:frame:button:1:action" content="post" />
-              <meta name="fc:frame:button:1:target" content="https://frame-demo-seven.vercel.app/api/frame" />
+              <meta name="fc:frame:button:1:action" content="link" />
+              <meta name="fc:frame:button:1:target" content="https://airstack.xyz" />
           </head>
         </html>
     `);

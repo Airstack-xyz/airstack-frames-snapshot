@@ -10,7 +10,7 @@ const frameMetadata = getFrameMetadata({
   ],
   image:
     "https://gateway.ipfs.io/ipfs/QmSho42fWi25oBWp5MrrFH9zUGFvnspxVHvcymNJoe3DEZ/output.png",
-  post_url: "https://frame-demo-seven.vercel.app/api/frame",
+  post_url: "https://airstack-frames-snapshot.vercel.app/api/frame",
 });
 
 export const metadata: Metadata = {
