@@ -8,7 +8,7 @@ const frameMetadata = getFrameMetadata({
     { label: "Custom Address", action: "post" },
   ],
   input: {
-    text: "Enter a token address on Ethereum, Polygon, Zora, or Base!",
+    text: "Enter a token address!",
   },
   image:
     "https://gateway.ipfs.io/ipfs/QmSho42fWi25oBWp5MrrFH9zUGFvnspxVHvcymNJoe3DEZ/output.png",
