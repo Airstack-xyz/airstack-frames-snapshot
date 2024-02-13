@@ -21,8 +21,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Airstack Snapshot Frames",
     description: "Airstack Snapshot Frames",
-    images:
-      "https://gateway.ipfs.io/ipfs/QmSho42fWi25oBWp5MrrFH9zUGFvnspxVHvcymNJoe3DEZ/output.png",
+    images: "https://airstack-frames-snapshot.vercel.app/api/image/first",
   },
   other: {
     ...frameMetadata,
