@@ -19,15 +19,17 @@ export async function GET(req: NextRequest) {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "white",
+          backgroundColor: "#fff",
+          fontSize: 32,
+          fontWeight: 600,
         }}
       >
-        <h1>Test Generated image</h1>
         <img
-          alt="Nailong"
-          height="300px"
-          src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSk940wLtBSwksi6CzSgpJdv8sYG4U-TIMY3g&usqp=CAU"
+          alt="Airstack Logo"
+          height="200px"
+          src="https://airstack-frames-snapshot.vercel.app/logo.png"
         />
+        <div style={{ marginTop: 40 }}>Historical Growth of Token Holders</div>
       </div>
     ),
     {
