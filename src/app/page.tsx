@@ -10,8 +10,7 @@ const frameMetadata = getFrameMetadata({
   input: {
     text: "Enter a token address!",
   },
-  image:
-    "https://gateway.ipfs.io/ipfs/QmSho42fWi25oBWp5MrrFH9zUGFvnspxVHvcymNJoe3DEZ/output.png",
+  image: "https://airstack-frames-snapshot.vercel.app/api/image/first",
   post_url: "https://airstack-frames-snapshot.vercel.app/api/frame",
 });
 
