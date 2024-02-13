@@ -5,9 +5,11 @@ const frameMetadata = getFrameMetadata({
   buttons: [
     { label: "BAYC", action: "post" },
     { label: "Farcaster OG", action: "post" },
-    { label: "Zerion DNA 1.0", action: "post" },
     { label: "Custom Address", action: "post" },
   ],
+  input: {
+    text: "Enter a token address on Ethereum, Polygon, Zora, or Base!",
+  },
   image:
     "https://gateway.ipfs.io/ipfs/QmSho42fWi25oBWp5MrrFH9zUGFvnspxVHvcymNJoe3DEZ/output.png",
   post_url: "https://airstack-frames-snapshot.vercel.app/api/frame",
