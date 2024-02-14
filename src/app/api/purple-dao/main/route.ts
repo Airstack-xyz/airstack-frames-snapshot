@@ -11,6 +11,8 @@ async function getResponse(req: NextRequest) {
   let fid = 5650; // Test FID – Only for development
   let buttonIndex = 1;
   const page = Number(req.nextUrl.searchParams.get("page"));
+  // To indicate whether the request come from the 1st frame
+  const first = req.nextUrl.searchParams.get("first") === "true";
   if (process.env.NODE_ENV === "production") {
     const body: FrameActionPayload = await req?.json();
     const { isValid, message } = await validateFrameMessage(body);
@@ -22,7 +24,12 @@ async function getResponse(req: NextRequest) {
     buttonIndex = message?.data?.frameActionBody?.buttonIndex;
   }
 
-  if (buttonIndex === 1) {
+  if (first && buttonIndex === 2) {
+    return NextResponse.redirect(
+      `https://explorer.airstack.xyz/token-balances?address=fc_fid%3A${fid}&rawInput=%23%E2%8E%B1fc_fid%3A${fid}%E2%8E%B1%28fc_fid%3A${fid}++ethereum+null%29&inputType=&tokenType=&activeView=&activeTokenInfo=&activeSnapshotInfo=&tokenFilters=&activeViewToken=&activeViewCount=&blockchainType=&sortOrder=&spamFilter=&mintFilter=&resolve6551=&activeSocialInfo=farcaster%E2%94%82vitalik.eth%E2%94%82${fid}%E2%94%820%E2%94%82135744%E2%94%82%E2%94%82%E2%94%8272%E2%94%82%E2%94%82%23%E2%8E%B10xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60%E2%8E%B1%280xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60+ADDRESS+ethereum+null%29`,
+      { status: 302 }
+    );
+  } else {
     // Fetch data from Airstack
     const { data } = await fetch(
       `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/airstack?fid=${fid}`
@@ -74,11 +81,6 @@ async function getResponse(req: NextRequest) {
       },
       status: 200,
     });
-  } else {
-    return NextResponse.redirect(
-      `https://explorer.airstack.xyz/token-balances?address=fc_fid%3A${fid}&rawInput=%23%E2%8E%B1fc_fid%3A${fid}%E2%8E%B1%28fc_fid%3A${fid}++ethereum+null%29&inputType=&tokenType=&activeView=&activeTokenInfo=&activeSnapshotInfo=&tokenFilters=&activeViewToken=&activeViewCount=&blockchainType=&sortOrder=&spamFilter=&mintFilter=&resolve6551=&activeSocialInfo=farcaster%E2%94%82vitalik.eth%E2%94%82${fid}%E2%94%820%E2%94%82135744%E2%94%82%E2%94%82%E2%94%8272%E2%94%82%E2%94%82%23%E2%8E%B10xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60%E2%8E%B1%280xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60+ADDRESS+ethereum+null%29`,
-      { status: 302 }
-    );
   }
 }
 

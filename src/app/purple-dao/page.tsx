@@ -10,7 +10,7 @@ const frameMetadata = getFrameMetadata({
     },
   ],
   image: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/image/first`,
-  post_url: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/main?page=0`,
+  post_url: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/main?page=0&first=true`,
 });
 
 export const metadata: Metadata = {
