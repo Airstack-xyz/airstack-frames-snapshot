@@ -1,10 +1,19 @@
 import { init, fetchQuery } from "@airstack/node";
 import { NextRequest } from "next/server";
+import {
+  FarcasterUserDetailsQuery,
+  FarcasterUserDetailsQueryVariables,
+} from "@/graphql/types";
+
+interface FarcasterUserDetailsResponse {
+  data: FarcasterUserDetailsQuery;
+  error: any;
+}
 
 init(process?.env.AIRSTACK_API_KEY ?? "");
 
 const query = /* GraphQL */ `
-  query MyQuery($fid: String!) {
+  query FarcasterUserDetails($fid: String!) {
     Socials(
       input: {
         filter: { userId: { _eq: $fid } }
@@ -22,10 +31,12 @@ const query = /* GraphQL */ `
 `;
 
 export async function GET(req: NextRequest): Promise<Response> {
-  const fid = req.nextUrl.searchParams.get("fid");
-  const { data, error } = await fetchQuery(query, {
-    fid,
-  });
+  const fid = req.nextUrl.searchParams.get("fid") ?? "";
+  const variables: FarcasterUserDetailsQueryVariables = { fid };
+  const { data, error }: FarcasterUserDetailsResponse = await fetchQuery(
+    query,
+    variables
+  );
   if (!error) {
     return Response.json({ data }, { status: 200 });
   } else {

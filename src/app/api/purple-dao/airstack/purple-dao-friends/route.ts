@@ -1,10 +1,22 @@
 import { init, fetchQueryWithPagination } from "@airstack/node";
 import { NextRequest } from "next/server";
+import {
+  PurpleDaoFriendsQuery,
+  PurpleDaoFriendsQueryVariables,
+} from "@/graphql/types";
+import { FetchQuery } from "@airstack/node/dist/types/types";
 
 init(process?.env.AIRSTACK_API_KEY ?? "");
 
+interface PurpleDaoFriendsResponse {
+  data: PurpleDaoFriendsQuery;
+  error: any;
+  hasNextPage: boolean;
+  getNextPage: () => Promise<FetchQuery | null>;
+}
+
 const query = /* GraphQL */ `
-  query MyQuery($farcasterUser: Identity!) {
+  query PurpleDaoFriends($farcasterUser: Identity!) {
     TokenBalances(
       input: {
         filter: {
@@ -47,16 +59,17 @@ const query = /* GraphQL */ `
 export async function GET(req: NextRequest): Promise<Response> {
   let res;
   let allFriends: any[] = [];
-  const fid = req.nextUrl.searchParams.get("fid");
+  const fid = req.nextUrl.searchParams.get("fid") ?? "";
   while (true) {
     if (!res) {
-      res = await fetchQueryWithPagination(query, {
+      const variables: PurpleDaoFriendsQueryVariables = {
         farcasterUser: `fc_fid:${fid}`,
-      });
+      };
+      res = await fetchQueryWithPagination(query, variables);
     }
 
-    // @ts-ignore
-    const { data, error, hasNextPage, getNextPage } = res ?? {};
+    const { data, error, hasNextPage, getNextPage }: PurpleDaoFriendsResponse =
+      res ?? {};
     if (error) {
       return Response.json({ error }, { status: 500 });
     } else {
@@ -64,7 +77,6 @@ export async function GET(req: NextRequest): Promise<Response> {
         ...allFriends,
         ...((data?.TokenBalances?.TokenBalance ?? [])
           ?.map(
-            // @ts-ignore
             ({ owner }) =>
               owner?.socialFollowings?.Following?.[0]?.followingAddress
                 ?.socials?.[0]

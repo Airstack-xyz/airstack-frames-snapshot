@@ -7,6 +7,16 @@ import {
 } from "frames.js";
 import { NextRequest, NextResponse } from "next/server";
 
+export interface PurpleDaoFriends {
+  profileName: string;
+  userId: string;
+  profileImageContentValue: {
+    image: {
+      medium: string;
+    };
+  };
+}
+
 async function getResponse(req: NextRequest) {
   let fid = 5650; // Test FID – Only for development
   let buttonIndex = 1;
@@ -55,8 +65,7 @@ async function getResponse(req: NextRequest) {
       buttons: [
         ...data
           ?.slice(3 * page, 3 * (page + 1))
-          // @ts-ignore
-          ?.map(({ profileName, userId }) => {
+          ?.map(({ profileName, userId }: PurpleDaoFriends) => {
             return {
               action: "link",
               label: `@${profileName}`,

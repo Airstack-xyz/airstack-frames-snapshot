@@ -1,5 +1,6 @@
 import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
+import type { PurpleDaoFriends } from "../../main/route";
 
 export async function GET(req: NextRequest) {
   const data = JSON.parse(req.nextUrl.searchParams.get("data") ?? "{}");
@@ -28,41 +29,46 @@ export async function GET(req: NextRequest) {
         }}
       >
         <div style={{ display: "flex", gap: 20 }}>
-          {data?.slice(3 * page, 3 * (page + 1))?.map(
-            (
-              // @ts-ignore
-              { profileName, userId, profileImageContentValue },
-              key: number
-            ) => (
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                key={key}
-              >
-                <img
-                  src={
-                    profileImageContentValue?.image
-                      ? profileImageContentValue?.image?.medium
-                      : "https://assets.airstack.xyz/image/social/UwRcrit0laZuAeHxVt8ii/y+ABH8d39zpXpBTHQwH00=/medium.png"
-                  }
-                  width="250px"
-                  height="250px"
-                  alt="Profile Image"
+          {data
+            ?.slice(3 * page, 3 * (page + 1))
+            ?.map(
+              (
+                {
+                  profileName,
+                  userId,
+                  profileImageContentValue,
+                }: PurpleDaoFriends,
+                key: number
+              ) => (
+                <div
                   style={{
-                    objectFit: "cover",
-                    objectPosition: "25% 25%",
-                    borderRadius: "50%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
                   }}
-                />
-                <b>@{profileName}</b>
-                <p>FID {userId}</p>
-              </div>
-            )
-          )}
+                  key={key}
+                >
+                  <img
+                    src={
+                      profileImageContentValue?.image
+                        ? profileImageContentValue?.image?.medium
+                        : "https://assets.airstack.xyz/image/social/UwRcrit0laZuAeHxVt8ii/y+ABH8d39zpXpBTHQwH00=/medium.png"
+                    }
+                    width="250px"
+                    height="250px"
+                    alt="Profile Image"
+                    style={{
+                      objectFit: "cover",
+                      objectPosition: "25% 25%",
+                      borderRadius: "50%",
+                    }}
+                  />
+                  <b>@{profileName}</b>
+                  <p>FID {userId}</p>
+                </div>
+              )
+            )}
         </div>
         <div
           style={{
