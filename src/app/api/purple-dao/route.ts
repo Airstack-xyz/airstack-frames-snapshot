@@ -19,22 +19,34 @@ async function getResponse(req: NextRequest) {
     fid = message?.data?.fid;
   }
 
+  const { data } = await fetch(
+    `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/airstack?fid=${fid}`
+  ).then((res) => res?.json());
+
   // Use the frame message to build the frame
   const frame: Frame = {
     version: "vNext",
-    image: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/image/generated?fid=${fid}&page=${page}`,
+    image: `${
+      process.env.NEXT_PUBLIC_HOSTNAME
+    }/api/purple-dao/image/generated?data=${JSON.stringify(data)}&page=${page}`,
+    // @ts-ignore
     buttons: [
-      {
-        action: "post",
-        label: `Next`,
-      },
+      // Hide the button if there are no more items
+      data?.length > (page + 1) * 3
+        ? {
+            action: "post",
+            label: `Next`,
+          }
+        : null,
       {
         action: "link",
         label: "Download CSV",
         target: `https://explorer.airstack.xyz/token-balances?address=fc_fid%3A${fid}&rawInput=%23%E2%8E%B1fc_fid%3A${fid}%E2%8E%B1%28fc_fid%3A${fid}++ethereum+null%29&inputType=&tokenType=&activeView=&activeTokenInfo=&activeSnapshotInfo=&tokenFilters=&activeViewToken=&activeViewCount=&blockchainType=&sortOrder=&spamFilter=&mintFilter=&resolve6551=&activeSocialInfo=farcaster%E2%94%82vitalik.eth%E2%94%825650%E2%94%820%E2%94%82135744%E2%94%82%E2%94%82%E2%94%8272%E2%94%82%E2%94%82%23%E2%8E%B10xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60%E2%8E%B1%280xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60+ADDRESS+ethereum+null%29`,
       },
-    ],
-    ogImage: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/image/generated?fid=${fid}&page=${page}`,
+    ].filter(Boolean),
+    ogImage: `${
+      process.env.NEXT_PUBLIC_HOSTNAME
+    }/api/purple-dao/image/generated?data=${JSON.stringify(data)}&page=${page}`,
     postUrl: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao?page=${
       page + 1
     }`,

@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import type { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
-  const fid = req.nextUrl.searchParams.get("fid");
+  const data = JSON.parse(req.nextUrl.searchParams.get("data") ?? "{}");
   const page = Number(req.nextUrl.searchParams.get("page"));
 
   const robotoMono400 = fetch(
@@ -11,9 +11,6 @@ export async function GET(req: NextRequest) {
       import.meta.url
     )
   ).then((res) => res.arrayBuffer());
-  const { data } = await fetch(
-    `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/airstack?fid=${fid}`
-  ).then((res) => res?.json());
 
   return new ImageResponse(
     (
