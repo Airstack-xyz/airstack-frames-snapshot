@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 const frameMetadata = getFrameMetadata({
   buttons: [
-    { label: "Discover Friends", action: "post" },
+    { label: "Discover Your Friends!" },
     { label: "Download CSV", action: "link", target: "" },
   ],
   image:
