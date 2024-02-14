@@ -58,7 +58,7 @@ export async function GET(req: NextRequest): Promise<Response> {
     // @ts-ignore
     const { data, error, hasNextPage, getNextPage } = res ?? {};
     if (error) {
-      return new Response("Error fetching data", { status: 500 });
+      return Response.json({ error }, { status: 500 });
     } else {
       allFriends = [
         ...allFriends,
