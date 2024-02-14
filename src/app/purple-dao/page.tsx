@@ -8,7 +8,7 @@ const frameMetadata = getFrameMetadata({
   ],
   image:
     "https://airstack-frames-snapshot.vercel.app/api/image/first-purple-dao",
-  post_url: "https://airstack-frames-snapshot.vercel.app/api/frame",
+  post_url: "https://airstack-frames-snapshot.vercel.app/api/purple-dao",
 });
 
 export const metadata: Metadata = {
