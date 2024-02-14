@@ -3,6 +3,7 @@ import {
   Frame,
   FrameActionPayload,
   validateFrameMessage,
+  FrameButtonsType,
 } from "frames.js";
 import { NextRequest } from "next/server";
 
@@ -19,9 +20,12 @@ async function getResponse(req: NextRequest) {
     fid = message?.data?.fid;
   }
 
+  // Fetch data from Airstack
   const { data } = await fetch(
     `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/airstack?fid=${fid}`
   ).then((res) => res?.json());
+
+  const hasNextPage = data?.length > (page + 1) * 3;
 
   // Use the frame message to build the frame
   const frame: Frame = {
@@ -31,28 +35,28 @@ async function getResponse(req: NextRequest) {
     }/api/purple-dao/image/generated?page=${page}&data=${encodeURIComponent(
       JSON.stringify(data)
     )}`,
-    // @ts-ignore
+    //
     buttons: [
-      // Hide the button if there are no more items
-      data?.length > (page + 1) * 3
-        ? {
-            action: "post",
-            label: `Next`,
-          }
-        : null,
+      // @ts-ignore
+      ...data?.slice(3 * page, 3 * (page + 1))?.map(({ profileName }) => {
+        return {
+          action: "link",
+          label: `@${profileName}`,
+          target: `https://explorer.airstack.xyz/token-balances?address=fc_fid%3Avitalik.eth&rawInput=%23%E2%8E%B1fc_fid%3A${fid}%E2%8E%B1%28fc_fid%3A${fid}++ethereum+null%29&inputType=ADDRESS`,
+        };
+      }),
       {
-        action: "link",
-        label: "Download CSV",
-        target: `https://explorer.airstack.xyz/token-balances?address=fc_fid%3A${fid}&rawInput=%23%E2%8E%B1fc_fid%3A${fid}%E2%8E%B1%28fc_fid%3A${fid}++ethereum+null%29&inputType=&tokenType=&activeView=&activeTokenInfo=&activeSnapshotInfo=&tokenFilters=&activeViewToken=&activeViewCount=&blockchainType=&sortOrder=&spamFilter=&mintFilter=&resolve6551=&activeSocialInfo=farcaster%E2%94%82vitalik.eth%E2%94%825650%E2%94%820%E2%94%82135744%E2%94%82%E2%94%82%E2%94%8272%E2%94%82%E2%94%82%23%E2%8E%B10xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60%E2%8E%B1%280xa45662638e9f3bbb7a6fecb4b17853b7ba0f3a60+ADDRESS+ethereum+null%29`,
+        action: "post",
+        label: hasNextPage ? "Next" : "Start again?",
       },
-    ].filter(Boolean),
+    ] as FrameButtonsType,
     ogImage: `${
       process.env.NEXT_PUBLIC_HOSTNAME
     }/api/purple-dao/image/generated?page=${page}&data=${encodeURIComponent(
       JSON.stringify(data)
     )}`,
     postUrl: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/main?page=${
-      page + 1
+      hasNextPage ? page + 1 : 0
     }`,
   };
 
