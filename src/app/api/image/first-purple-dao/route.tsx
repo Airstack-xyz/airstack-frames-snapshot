@@ -20,16 +20,28 @@ export async function GET(req: NextRequest) {
           alignItems: "center",
           justifyContent: "center",
           backgroundColor: "#fff",
-          fontSize: 32,
+          fontSize: 20,
           fontWeight: 600,
         }}
       >
-        <img
-          alt="Airstack Logo"
-          height="400px"
-          src="https://airstack-frames-snapshot.vercel.app/logo.png"
-        />
-        <div>Historical Growth of Token Holders</div>
+        <h1>
+          <b>Discover Purple DAO Friends!</b>
+        </h1>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          Powered By{" "}
+          <img
+            alt="Airstack Logo"
+            height="100px"
+            src="https://airstack-frames-snapshot.vercel.app/logo.png"
+          />
+        </div>
       </div>
     ),
     {
