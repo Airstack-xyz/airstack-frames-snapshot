@@ -11,8 +11,8 @@ export async function GET(req: NextRequest) {
     )
   ).then((res) => res.arrayBuffer());
   const { data } = await fetch(
-    `http://localhost:3000/api/airstack/purple-dao?fid=${fid}`
-  ).then((res) => res.json());
+    `https://airstack-frames-snapshot.vercel.app/api/airstack/purple-dao?fid=${fid}`
+  ).then((res) => res?.json());
 
   return new ImageResponse(
     (

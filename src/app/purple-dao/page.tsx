@@ -2,10 +2,7 @@ import { getFrameMetadata } from "@coinbase/onchainkit";
 import type { Metadata } from "next";
 
 const frameMetadata = getFrameMetadata({
-  buttons: [
-    { label: "Discover Your Friends!" },
-    { label: "Download CSV", action: "link", target: "" },
-  ],
+  buttons: [{ label: "Discover Your Friends!" }],
   image:
     "https://airstack-frames-snapshot.vercel.app/api/image/first-purple-dao",
   post_url: "https://airstack-frames-snapshot.vercel.app/api/purple-dao",
