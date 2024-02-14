@@ -19,7 +19,7 @@ async function getResponse(req: NextRequest) {
     }
     // Override FID for production from Signature Packet
     fid = message?.data?.fid;
-    message?.data?.frameActionBody?.buttonIndex;
+    buttonIndex = message?.data?.frameActionBody?.buttonIndex;
   }
 
   if (buttonIndex === 1) {
@@ -40,14 +40,16 @@ async function getResponse(req: NextRequest) {
       )}`,
       //
       buttons: [
-        // @ts-ignore
-        ...data?.slice(3 * page, 3 * (page + 1))?.map(({ profileName }) => {
-          return {
-            action: "link",
-            label: `@${profileName}`,
-            target: `https://explorer.airstack.xyz/token-balances?address=fc_fid%3Avitalik.eth&rawInput=%23%E2%8E%B1fc_fid%3A${fid}%E2%8E%B1%28fc_fid%3A${fid}++ethereum+null%29&inputType=ADDRESS`,
-          };
-        }),
+        ...data
+          ?.slice(3 * page, 3 * (page + 1))
+          // @ts-ignore
+          ?.map(({ profileName, userId }) => {
+            return {
+              action: "link",
+              label: `@${profileName}`,
+              target: `https://explorer.airstack.xyz/token-balances?address=fc_fid%3A${userId}&rawInput=%23%E2%8E%B1fc_fid%3A${userId}%E2%8E%B1%28fc_fid%3A${userId}++ethereum+null%29&inputType=ADDRESS`,
+            };
+          }),
         {
           action: "post",
           label: hasNextPage ? "Next" : "Start again?",
