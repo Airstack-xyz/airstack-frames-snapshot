@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 const frameMetadata = getFrameMetadata({
   buttons: [{ label: "Discover Your Friends!" }],
   image: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/image/first`,
-  post_url: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao?page=0`,
+  post_url: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/main?page=0`,
 });
 
 export const metadata: Metadata = {

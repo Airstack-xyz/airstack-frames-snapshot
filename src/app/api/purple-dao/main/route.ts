@@ -28,7 +28,9 @@ async function getResponse(req: NextRequest) {
     version: "vNext",
     image: `${
       process.env.NEXT_PUBLIC_HOSTNAME
-    }/api/purple-dao/image/generated?data=${JSON.stringify(data)}&page=${page}`,
+    }/api/purple-dao/image/generated?page=${page}&data=${encodeURIComponent(
+      JSON.stringify(data)
+    )}`,
     // @ts-ignore
     buttons: [
       // Hide the button if there are no more items
@@ -46,8 +48,10 @@ async function getResponse(req: NextRequest) {
     ].filter(Boolean),
     ogImage: `${
       process.env.NEXT_PUBLIC_HOSTNAME
-    }/api/purple-dao/image/generated?data=${JSON.stringify(data)}&page=${page}`,
-    postUrl: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao?page=${
+    }/api/purple-dao/image/generated?page=${page}&data=${encodeURIComponent(
+      JSON.stringify(data)
+    )}`,
+    postUrl: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/main?page=${
       page + 1
     }`,
   };
