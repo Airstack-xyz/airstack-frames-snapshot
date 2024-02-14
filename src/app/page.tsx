@@ -10,8 +10,8 @@ const frameMetadata = getFrameMetadata({
   input: {
     text: "Enter a token address!",
   },
-  image: "https://airstack-frames-snapshot.vercel.app/api/image/first",
-  post_url: "https://airstack-frames-snapshot.vercel.app/api/frame",
+  image: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/image/first`,
+  post_url: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/frame`,
 });
 
 export const metadata: Metadata = {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Airstack Snapshot Frames",
     description: "Airstack Snapshot Frames",
-    images: "https://airstack-frames-snapshot.vercel.app/api/image/first",
+    images: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/image/first`,
   },
   other: {
     ...frameMetadata,

@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
         <img
           alt="Airstack Logo"
           height="400px"
-          src="https://airstack-frames-snapshot.vercel.app/logo.png"
+          src={`${process.env.NEXT_PUBLIC_HOSTNAME}/logo.png`}
         />
         <div>Historical Growth of Token Holders</div>
       </div>

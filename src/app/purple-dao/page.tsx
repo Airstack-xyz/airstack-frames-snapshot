@@ -3,9 +3,8 @@ import type { Metadata } from "next";
 
 const frameMetadata = getFrameMetadata({
   buttons: [{ label: "Discover Your Friends!" }],
-  image:
-    "https://airstack-frames-snapshot.vercel.app/api/image/first-purple-dao",
-  post_url: "https://airstack-frames-snapshot.vercel.app/api/purple-dao",
+  image: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/image/first-purple-dao`,
+  post_url: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao?page=0`,
 });
 
 export const metadata: Metadata = {
@@ -14,8 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Airstack Purple DAO Friends Frames",
     description: "Airstack Purple DAO Friends Frames",
-    images:
-      "https://airstack-frames-snapshot.vercel.app/api/image/first-purple-dao",
+    images: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/image/first-purple-dao`,
   },
   other: {
     ...frameMetadata,

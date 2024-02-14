@@ -3,6 +3,7 @@ import type { NextRequest } from "next/server";
 
 export async function GET(req: NextRequest) {
   const fid = req.nextUrl.searchParams.get("fid");
+  const page = Number(req.nextUrl.searchParams.get("page"));
 
   const robotoMono400 = fetch(
     new URL(
@@ -11,7 +12,7 @@ export async function GET(req: NextRequest) {
     )
   ).then((res) => res.arrayBuffer());
   const { data } = await fetch(
-    `https://airstack-frames-snapshot.vercel.app/api/airstack/purple-dao?fid=${fid}`
+    `${process.env.NEXT_PUBLIC_HOSTNAME}/api/airstack/purple-dao?fid=${fid}`
   ).then((res) => res?.json());
 
   return new ImageResponse(
@@ -30,7 +31,7 @@ export async function GET(req: NextRequest) {
         }}
       >
         <div style={{ display: "flex", gap: 20 }}>
-          {data?.slice(0, 3)?.map(
+          {data?.slice(3 * page, 3 * (page + 1))?.map(
             (
               // @ts-ignore
               { profileName, userId, profileImageContentValue },
@@ -46,7 +47,11 @@ export async function GET(req: NextRequest) {
                 key={key}
               >
                 <img
-                  src={profileImageContentValue?.image?.medium}
+                  src={
+                    profileImageContentValue?.image
+                      ? profileImageContentValue?.image?.medium
+                      : "https://assets.airstack.xyz/image/social/UwRcrit0laZuAeHxVt8ii/y+ABH8d39zpXpBTHQwH00=/medium.png"
+                  }
                   width="250px"
                   height="250px"
                   alt="Profile Image"
@@ -74,7 +79,7 @@ export async function GET(req: NextRequest) {
           <img
             alt="Airstack Logo"
             height="100px"
-            src="https://airstack-frames-snapshot.vercel.app/logo.png"
+            src={`${process.env.NEXT_PUBLIC_HOSTNAME}/logo.png`}
           />
         </div>
       </div>
