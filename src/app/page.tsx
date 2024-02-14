@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 const frameMetadata = getFrameMetadata({
   buttons: [
-    { label: "BAYC", action: "post" },
+    { label: "Purple DAO", action: "post" },
     { label: "Farcaster OG", action: "post" },
     { label: "Custom Address", action: "post" },
   ],
