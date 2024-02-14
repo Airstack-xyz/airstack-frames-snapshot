@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 const frameMetadata = getFrameMetadata({
   buttons: [{ label: "Discover Your Friends!" }],
-  image: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/image/first-purple-dao`,
+  image: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/image/first`,
   post_url: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao?page=0`,
 });
 
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Airstack Purple DAO Friends Frames",
     description: "Airstack Purple DAO Friends Frames",
-    images: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/image/first-purple-dao`,
+    images: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/image/first`,
   },
   other: {
     ...frameMetadata,

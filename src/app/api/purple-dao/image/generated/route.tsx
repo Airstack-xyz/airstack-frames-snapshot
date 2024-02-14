@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     )
   ).then((res) => res.arrayBuffer());
   const { data } = await fetch(
-    `${process.env.NEXT_PUBLIC_HOSTNAME}/api/airstack/purple-dao?fid=${fid}`
+    `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/airstack?fid=${fid}`
   ).then((res) => res?.json());
 
   return new ImageResponse(
