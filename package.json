@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev\" \"yarn generate --watch\"",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -12,6 +12,7 @@
     "predev": "yarn generate"
   },
   "dependencies": {
+    "@airstack/frames": "^1.0.8",
     "@airstack/node": "^0.0.5",
     "@coinbase/onchainkit": "^0.6.1",
     "@fontsource/roboto-mono": "^5.0.16",

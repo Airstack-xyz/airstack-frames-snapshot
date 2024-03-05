@@ -6,6 +6,7 @@ import {
   FrameButtonsType,
 } from "frames.js";
 import { NextRequest, NextResponse } from "next/server";
+import { init, getFarcasterFollowers } from "@airstack/frames";
 
 export interface PurpleDaoFriends {
   profileName: string;
@@ -18,7 +19,7 @@ export interface PurpleDaoFriends {
 }
 
 async function getResponse(req: NextRequest) {
-  let fid = 5650; // Test FID – Only for development
+  let fid = 6806; // Test FID – Only for development
   let buttonIndex = 1;
   const page = Number(req.nextUrl.searchParams.get("page"));
   // To indicate whether the request come from the 1st frame
