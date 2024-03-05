@@ -11,7 +11,7 @@ async function getResponse(req: NextRequest) {
     init(process.env.AIRSTACK_API_KEY ?? "");
     const res = await validateFramesMessage(body);
     console.log(res);
-    return NextResponse.json({ ...res }, { status: 200 });
+    return NextResponse.json({ test: 2 }, { status: 200 });
   } catch (e) {
     console.error(e);
     return NextResponse.json({ e }, { status: 500 });

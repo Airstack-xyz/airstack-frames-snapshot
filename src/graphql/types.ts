@@ -129,6 +129,13 @@ export type Boolean_Comparator_Exp = {
   _eq: InputMaybe<Scalars['Boolean']['input']>;
 };
 
+export type ConnectedAddress = {
+  address: Maybe<Scalars['Address']['output']>;
+  blockchain: Maybe<Scalars['String']['output']>;
+  chainId: Maybe<Scalars['String']['output']>;
+  timestamp: Maybe<Scalars['Time']['output']>;
+};
+
 export type ContractMetadata = {
   /** Description of the token, mirrored from the smart contract */
   description: Maybe<Scalars['String']['output']>;
@@ -312,6 +319,138 @@ export type DomainsOutput = {
 export enum EveryBlockchain {
   All = 'ALL'
 }
+
+export type FarcasterChannel = {
+  channelId: Scalars['String']['output'];
+  createdAtTimestamp: Scalars['Time']['output'];
+  dappName: Scalars['String']['output'];
+  dappSlug: Scalars['String']['output'];
+  description: Scalars['String']['output'];
+  /** Airstack unique identifier for the data point */
+  id: Scalars['ID']['output'];
+  imageUrl: Scalars['String']['output'];
+  leadIds: Maybe<Array<Scalars['String']['output']>>;
+  leadProfiles: Maybe<Array<Social>>;
+  name: Scalars['String']['output'];
+  participants: Maybe<Array<FarcasterChannelParticipant>>;
+  url: Scalars['String']['output'];
+};
+
+
+export type FarcasterChannelLeadProfilesArgs = {
+  input: InputMaybe<SocialsNestedInput>;
+};
+
+
+export type FarcasterChannelParticipantsArgs = {
+  input: InputMaybe<FarcasterChannelParticipantNestedInput>;
+};
+
+export enum FarcasterChannelActionType {
+  Cast = 'cast',
+  Reply = 'reply'
+}
+
+export type FarcasterChannelActionType_Comparator_Exp = {
+  _eq: InputMaybe<FarcasterChannelActionType>;
+  _in: InputMaybe<Array<FarcasterChannelActionType>>;
+};
+
+export type FarcasterChannelFilter = {
+  _and: InputMaybe<Array<FarcasterChannelFilter>>;
+  _nor: InputMaybe<Array<FarcasterChannelFilter>>;
+  _or: InputMaybe<Array<FarcasterChannelFilter>>;
+  channelId: InputMaybe<String_Comparator_Exp>;
+  createdAtTimestamp: InputMaybe<Time_Comparator_Exp>;
+  leadId: InputMaybe<String_Comparator_Exp>;
+  leadIdentity: InputMaybe<Identity_Comparator_Exp>;
+  name: InputMaybe<Regex_String_Comparator_Exp>;
+};
+
+export type FarcasterChannelNestedInput = {
+  blockchain: InputMaybe<EveryBlockchain>;
+  filter: InputMaybe<FarcasterChannelFilter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  order: InputMaybe<Array<InputMaybe<FarcasterChannelOrderBy>>>;
+};
+
+export type FarcasterChannelOrderBy = {
+  createdAtTimestamp: InputMaybe<OrderBy>;
+};
+
+export type FarcasterChannelParticipant = {
+  channel: FarcasterChannel;
+  channelActions: Maybe<Array<FarcasterChannelActionType>>;
+  channelId: Scalars['String']['output'];
+  channelName: Scalars['String']['output'];
+  dappName: Scalars['String']['output'];
+  dappSlug: Scalars['String']['output'];
+  /** Airstack unique identifier for the data point */
+  id: Maybe<Scalars['ID']['output']>;
+  lastActionTimestamp: Scalars['Time']['output'];
+  lastCastedTimestamp: Maybe<Scalars['Time']['output']>;
+  lastRepliedTimestamp: Maybe<Scalars['Time']['output']>;
+  participant: Maybe<Social>;
+  participantId: Scalars['String']['output'];
+};
+
+
+export type FarcasterChannelParticipantChannelArgs = {
+  input: InputMaybe<FarcasterChannelNestedInput>;
+};
+
+
+export type FarcasterChannelParticipantParticipantArgs = {
+  input: InputMaybe<SocialsNestedInput>;
+};
+
+export type FarcasterChannelParticipantFilter = {
+  _and: InputMaybe<Array<FarcasterChannelParticipantFilter>>;
+  _nor: InputMaybe<Array<FarcasterChannelParticipantFilter>>;
+  _or: InputMaybe<Array<FarcasterChannelParticipantFilter>>;
+  channelActions: InputMaybe<FarcasterChannelActionType_Comparator_Exp>;
+  channelId: InputMaybe<String_Comparator_Exp>;
+  channelName: InputMaybe<Regex_String_Comparator_Exp>;
+  lastActionTimestamp: InputMaybe<Time_Comparator_Exp>;
+  participant: InputMaybe<Identity_Comparator_Exp>;
+};
+
+export type FarcasterChannelParticipantNestedInput = {
+  blockchain: InputMaybe<EveryBlockchain>;
+  filter: InputMaybe<FarcasterChannelParticipantFilter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  order: InputMaybe<Array<InputMaybe<FarcasterChannelParticipantOrderBy>>>;
+};
+
+export type FarcasterChannelParticipantOrderBy = {
+  lastActionTimestamp: InputMaybe<OrderBy>;
+};
+
+export type FarcasterChannelParticipantsInput = {
+  blockchain: EveryBlockchain;
+  cursor: InputMaybe<Scalars['String']['input']>;
+  filter: FarcasterChannelParticipantFilter;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  order: InputMaybe<Array<FarcasterChannelParticipantOrderBy>>;
+};
+
+export type FarcasterChannelParticipantsOutput = {
+  FarcasterChannelParticipant: Maybe<Array<FarcasterChannelParticipant>>;
+  pageInfo: Maybe<PageInfo>;
+};
+
+export type FarcasterChannelsInput = {
+  blockchain: EveryBlockchain;
+  cursor: InputMaybe<Scalars['String']['input']>;
+  filter: InputMaybe<FarcasterChannelFilter>;
+  limit: InputMaybe<Scalars['Int']['input']>;
+  order: InputMaybe<Array<FarcasterChannelOrderBy>>;
+};
+
+export type FarcasterChannelsOutput = {
+  FarcasterChannel: Maybe<Array<FarcasterChannel>>;
+  pageInfo: Maybe<PageInfo>;
+};
 
 export type Float_Comparator_Exp = {
   _eq: InputMaybe<Scalars['Float']['input']>;
@@ -636,6 +775,8 @@ export type Query = {
   Accounts: Maybe<AccountsOutput>;
   Domain: Maybe<Domain>;
   Domains: Maybe<DomainsOutput>;
+  FarcasterChannelParticipants: Maybe<FarcasterChannelParticipantsOutput>;
+  FarcasterChannels: Maybe<FarcasterChannelsOutput>;
   PoapEvents: Maybe<PoapEventsOutput>;
   Poaps: Maybe<PoapsOutput>;
   Snapshots: Maybe<SnapshotsOutput>;
@@ -666,6 +807,16 @@ export type QueryDomainArgs = {
 
 export type QueryDomainsArgs = {
   input: DomainsInput;
+};
+
+
+export type QueryFarcasterChannelParticipantsArgs = {
+  input: FarcasterChannelParticipantsInput;
+};
+
+
+export type QueryFarcasterChannelsArgs = {
+  input: FarcasterChannelsInput;
 };
 
 
@@ -815,6 +966,7 @@ export type Social = {
   blockchain: Maybe<Blockchain>;
   /** Unique identifier for the blockchain */
   chainId: Maybe<Scalars['String']['output']>;
+  connectedAddresses: Maybe<Array<ConnectedAddress>>;
   coverImageContentValue: Maybe<Media>;
   coverImageURI: Maybe<Scalars['String']['output']>;
   /** Social DApp name */
