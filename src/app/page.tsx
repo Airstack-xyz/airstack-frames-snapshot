@@ -11,7 +11,7 @@ const frameMetadata = getFrameMetadata({
     text: "Enter a token address!",
   },
   image: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/image/first`,
-  post_url: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/frame`,
+  post_url: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/test`,
 });
 
 export const metadata: Metadata = {
