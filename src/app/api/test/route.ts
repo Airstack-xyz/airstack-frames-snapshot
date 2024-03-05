@@ -1,15 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import { checkPoapAttendedByFarcasterUser, init } from "@airstack/frames";
+import {
+  ValidateFramesMessageInput,
+  init,
+  validateFramesMessage,
+} from "@airstack/frames";
 
 async function getResponse(req: NextRequest) {
-  let fid = 602; // Test FID – Only for development
-  init(process.env.AIRSTACK_API_KEY ?? "");
-  const { data } = await checkPoapAttendedByFarcasterUser({
-    fid,
-    eventId: [160005, 159993, 13242],
-  });
-  console.log(data);
-  return NextResponse.json({ data }, { status: 200 });
+  try {
+    const body: ValidateFramesMessageInput = await req.json();
+    init(process.env.AIRSTACK_API_KEY ?? "");
+    const res = await validateFramesMessage(body);
+    console.log(res);
+    return NextResponse.json({ ...res }, { status: 200 });
+  } catch (e) {
+    console.error(e);
+    return NextResponse.json({ e }, { status: 500 });
+  }
 }
 
 export async function POST(req: NextRequest): Promise<Response> {
