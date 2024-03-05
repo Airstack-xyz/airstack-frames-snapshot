@@ -33,25 +33,25 @@ export const generateCaptchaImageSvg = async (
         style={{
           backgroundColor: "#FFF",
           position: "absolute",
-          right: 200,
+          right: 20,
           display: "flex",
-          bottom: 380,
-          fontSize: "50px",
-          borderRadius: "8px",
+          bottom: 38,
+          fontSize: "5px",
+          borderRadius: "1px",
           fontFamily: "ConcertOne-Regular", // use the font name here
           color: "#000", // change this to the color you want for the text
-          paddingTop: "20px",
-          paddingBottom: "20px",
-          paddingRight: "100px",
-          paddingLeft: "100px",
+          paddingTop: "2px",
+          paddingBottom: "2px",
+          paddingRight: "10px",
+          paddingLeft: "10px",
         }}
       >
         {numA} + {numB}
       </div>
     </div>,
     {
-      width: 1958,
-      height: 1024,
+      width: 195.8,
+      height: 102.4,
       fonts: [
         {
           data: concertOneFontData,

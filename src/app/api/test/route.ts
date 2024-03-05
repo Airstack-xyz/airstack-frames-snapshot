@@ -16,6 +16,9 @@ async function getResponse(req: NextRequest) {
     const pngBuffer = (
       await sharp(Buffer.from(svg)).toFormat("png").toBuffer()
     ).toString("base64");
+    const b = pngBuffer.length * 2;
+    const kb = (b / 1024).toFixed(2);
+    console.log(kb);
 
     // const res: ValidateFramesMessageOutput = await validateFramesMessage(body);
     return new NextResponse(
