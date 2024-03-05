@@ -13,7 +13,9 @@ async function getResponse(req: NextRequest) {
     const svg = await generateCaptchaImageSvg(3, 2);
     // const body: ValidateFramesMessageInput = await req.json();
     init(process.env.AIRSTACK_API_KEY ?? "");
-    const pngBuffer = await sharp(Buffer.from(svg)).toFormat("png").toBuffer();
+    const pngBuffer = (
+      await sharp(Buffer.from(svg)).toFormat("png").toBuffer()
+    ).toString("base64");
 
     // const res: ValidateFramesMessageOutput = await validateFramesMessage(body);
     return new NextResponse(
@@ -22,7 +24,7 @@ async function getResponse(req: NextRequest) {
           <html>
             <head>
               <meta property="fc:frame" content="vNext" />
-              <meta property="fc:frame:image" content="${pngBuffer}" />
+              <meta property="fc:frame:image" content="data:image/png;base64,${pngBuffer}" />
               <meta name="fc:frame:button:1" content="Try again?" />
               <meta name="fc:frame:button:1:action" content="link" />
               <meta name="fc:frame:button:1:target" content="https://airstack.xyz" />
