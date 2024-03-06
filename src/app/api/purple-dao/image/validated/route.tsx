@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
         }}
       >
         <h1>
-          <b>Validate Frames w/ Airstack!</b>
+          <b>Validation Successful!</b>
         </h1>
         <div
           style={{

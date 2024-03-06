@@ -2,15 +2,8 @@ import { getFrameMetadata } from "@coinbase/onchainkit";
 import type { Metadata } from "next";
 
 const frameMetadata = getFrameMetadata({
-  buttons: [
-    { label: "Purple DAO", action: "post" },
-    { label: "Farcaster OG", action: "post" },
-    { label: "Custom Address", action: "post" },
-  ],
-  input: {
-    text: "Enter a token address!",
-  },
-  image: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/image/first`,
+  buttons: [{ label: "Validate Frames!", action: "post" }],
+  image: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/image/first`,
   post_url: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/test`,
 });
 
@@ -20,7 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Airstack Snapshot Frames",
     description: "Airstack Snapshot Frames",
-    images: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/image/first`,
+    images: `${process.env.NEXT_PUBLIC_HOSTNAME}/api/purple-dao/image/first`,
   },
   other: {
     ...frameMetadata,
